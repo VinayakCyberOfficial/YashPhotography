@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yash Photography</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Modern Color Palette */
+        :root {
+            --primary: #0f0f1a;
+            --secondary: #1e1e2d;
+            --accent: #00f0ff;
+            --accent-light: rgba(0, 240, 255, 0.7);
+            --text: #e0e0e0;
+            --glass: rgba(30, 30, 45, 0.5);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            
+            /* Font Variables */
+            --heading-font: 'Playfair Display', serif;
+            --body-font: 'Montserrat', sans-serif;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            font-family: var(--body-font);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: radial-gradient(circle at 20% 30%, #1a1a2e 0%, #0f0f1a 70%);
+            padding-top: 80px;
+            font-weight: 400;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--heading-font);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* Glassmorphism Effect */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: 12px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent), #7b00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            font-family: var(--heading-font);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-family: var(--body-font);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn a {
+            text-decoration: none;
+            color: black;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text);
+            z-index: 1002;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: calc(100vh - 80px);
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            align-items: center;
+            padding: 2rem 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            padding-right: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+            min-height: 120px;
+        }
+
+        .hero p {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 80%;
+            min-height: 60px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* Typewriter Effect */
+        .typewriter {
+            display: inline-block;
+            position: relative;
+        }
+        
+        .typewriter::after {
+            content: '|';
+            position: absolute;
+            right: -8px;
+            color: var(--accent);
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .hero-image {
+            position: relative;
+            height: 60vh;
+            transform: rotate(-5deg);
+        }
+
+        .hero-image .glass {
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .image-tile {
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-tile:hover {
+            transform: scale(1.05);
+            z-index: 2;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+        }
+
+        .image-tile::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 240, 255, 0.1), rgba(123, 0, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-tile:hover::after {
+            opacity: 1;
+        }
+
+        .tile-1 {
+            grid-column: 1 / 3;
+            grid-row: 1 / 3;
+            background-image: url('1.jpg');
+        }
+
+        .tile-2 {
+            grid-column: 3;
+            grid-row: 1;
+            background-image: url('2.jpg');
+        }
+
+        .tile-3 {
+            grid-column: 3;
+            grid-row: 2;
+            background-image: url('3.jpg');
+        }
+
+        .tile-4 {
+            grid-column: 1;
+            grid-row: 3;
+            background-image: url('4.jpg');
+        }
+
+        .tile-5 {
+            grid-column: 2 / 4;
+            grid-row: 3;
+            background-image: url('5.jpg');
+        }
+
+        /* Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(45deg, var(--accent), #7b00ff);
+            color: var(--primary);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+            font-family: var(--body-font);
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 240, 255, 0.4);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+        }
+
+        .section-header p {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* Masonry Grid */
+        .masonry-grid {
+            columns: 3;
+            column-gap: 1.5rem;
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            transform: translateZ(0);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .masonry-item.glass {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: all 0.5s ease;
+        }
+
+        .masonry-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 240, 255, 0.3);
+            z-index: 10;
+        }
+
+        .masonry-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(0.9) saturate(1.1);
+        }
+
+        .masonry-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .masonry-item:hover .masonry-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .masonry-overlay h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-family: var(--heading-font);
+            font-weight: 500;
+        }
+
+        .masonry-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            text-align: center;
+            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+        .contact {
+            margin-top: 0.5rem;
+            font-weight: 900;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            color: var(--accent);
+            transition: transform 0.3s ease;
+        }
+        .contact:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                height: auto;
+                padding-top: 1rem;
+            }
+
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 3rem;
+                text-align: center;
+            }
+
+            .hero p {
+                max-width: 100%;
+                margin: 0 auto 2rem;
+            }
+
+            .masonry-grid {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: var(--secondary);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                transition: all 0.5s ease-out;
+                pointer-events: none;
+                z-index: 1001;
+                height: calc(100vh - 80px);
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .nav-links a {
+                font-size: 1.2rem;
+                padding: 0.8rem 2rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-image {
+                height: 50vh;
+                transform: rotate(0);
+            }
+
+            .masonry-grid {
+                columns: 1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass">
+        <div class="logo">Yash Photography</div>
+        <div class="nav-links" id="navLinks">
+            <a href="#home">HOME</a>
+            <a href="#portfolio">FEATURED WORK</a>
+            <a href="#collections">PREWEDDING COUNTDOWNS</a>
+            <a href="#essays">OUTDOOR MOMENTS</a>
+        </div>
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 id="typewriter-title"></h1>
+            <p id="typewriter-subtitle"></p>
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
+                <a href="https://www.instagram.com/i_am_yash_000_/?igshid=1wuzl8iohvgip%2F" target="_blank" class="btn">View Portfolio</a>
+            </div>
+        </div>
+        <div class="hero-image floating">
+            <div class="glass">
+                <div class="image-tile tile-1"></div>
+                <div class="image-tile tile-2"></div>
+                <div class="image-tile tile-3"></div>
+                <div class="image-tile tile-4"></div>
+                <div class="image-tile tile-5"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <div class="section-header">
+            <h2>FEATURED WORK</h2>
+            <p>Where moments become timeless art</p>
+        </div>
+        
+        <div class="masonry-grid">
+            <div class="masonry-item glass">
+                <img src="3.jpg" alt="Urban Geometry">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="masonry-item glass">
+                <img src="7.jpg" alt="Silhouettes">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="masonry-item glass">
+                <img src="8.jpg" alt="Neon Reflections">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="masonry-item glass">
+                <img src="10.jpg" alt="Monochromatic">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="masonry-item glass">
+                <img src="9.jpg" alt="Nature">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="masonry-item glass">
+                <img src="4.jpg" alt="Landscape">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Collections Section -->
+    <section id="collections">
+        <div class="section-header">
+            <h2>PREWEDDING COUNTDOWNS</h2>
+            <p>Capturing love stories before the big day</p>
+        </div>
+        <div class="masonry-grid">
+            <div class="masonry-item glass">
+                <img src="11.jpg" alt="Mountain">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="masonry-item glass">
+                <img src="12.jpg" alt="Abstract">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="masonry-item glass">
+                <img src="14.jpg" alt="Fashion">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Visual Essay Section -->
+    <section id="essays" style="background: linear-gradient(to right, var(--primary), var(--secondary));">
+        <div class="section-header">
+            <h2>OUTDOOR MOMENTS</h2>
+            <p>Nature's beauty captured through my lens</p>
+        </div>
+        
+        <div class="masonry-grid">
+            <div class="masonry-item glass">
+                <img src="13.jpg" alt="Light">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="masonry-item glass">
+                <img src="1.jpg" alt="Water">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="masonry-item glass">
+                <img src="2.jpg" alt="Car">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="masonry-item glass">
+                <img src="5.jpg" alt="Building">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="masonry-item glass">
+                <img src="6.jpg" alt="Technology">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="masonry-item glass">
+                <img src="4.jpg" alt="Cityscape">
+                <div class="masonry-overlay">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p class="copyright contact">+91 9545050539 | yashsonawane9764@gmail.com</p>
+        <p class="copyright">© 2025 Yash Photography | A Photography Showcase</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle functionality - fixed version
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        // Toggle menu when hamburger is clicked
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            const isActive = navLinks.classList.contains('active');
+            menuToggle.innerHTML = isActive ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            document.body.style.overflow = isActive ? 'hidden' : '';
+        });
+
+        // Close menu when clicking on a nav link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                navLinks.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Typewriter Effect
+        const typewriterTitle = document.getElementById('typewriter-title');
+        const typewriterSubtitle = document.getElementById('typewriter-subtitle');
+        
+        const titleTexts = [
+            "Yash Photography",
+            "Capturing Life's Perfect Moments",
+            "Framing Your Beautiful Stories",
+            "Where Vision Meets Emotion"
+        ];
+        
+        const subtitleTexts = [
+            "Professional photography that tells your unique story",
+            "Turning fleeting moments into everlasting memories",
+            "Artistic perspectives that reveal hidden beauty"
+        ];
+        
+        let currentTitleIndex = 0;
+        let currentSubtitleIndex = 0;
+        let isTyping = false;
+        
+        function typeWriter(element, text, speed, callback) {
+            if (!text || text.length === 0) {
+                if (callback) callback();
+                return;
+            }
+            
+            let i = 0;
+            element.innerHTML = '';
+            element.classList.add('typewriter');
+            isTyping = true;
+            
+            function typing() {
+                if (i < text.length) {
+                    element.innerHTML = text.substring(0, i+1);
+                    i++;
+                    setTimeout(typing, speed);
+                } else {
+                    element.classList.remove('typewriter');
+                    isTyping = false;
+                    if (callback) setTimeout(callback, 1500);
+                }
+            }
+            
+            typing();
+        }
+        
+        function eraseText(element, speed, callback) {
+            let text = element.innerHTML;
+            let length = text.length;
+            
+            if (length === 0) {
+                if (callback) callback();
+                return;
+            }
+            
+            function erasing() {
+                if (length > 0) {
+                    element.innerHTML = text.substring(0, length-1);
+                    length--;
+                    setTimeout(erasing, speed);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            
+            erasing();
+        }
+        
+        function cycleTitle() {
+            if (isTyping) return;
+            
+            currentTitleIndex = (currentTitleIndex + 1) % titleTexts.length;
+            typeWriter(typewriterTitle, titleTexts[currentTitleIndex], 100, () => {
+                setTimeout(() => {
+                    eraseText(typewriterTitle, 50, cycleTitle);
+                }, 3000);
+            });
+        }
+        
+        function cycleSubtitle() {
+            currentSubtitleIndex = (currentSubtitleIndex + 1) % subtitleTexts.length;
+            typeWriter(typewriterSubtitle, subtitleTexts[currentSubtitleIndex], 50, () => {
+                setTimeout(() => {
+                    eraseText(typewriterSubtitle, 30, cycleSubtitle);
+                }, 3000);
+            });
+        }
+        
+        // Start the typewriter effects
+        document.addEventListener('DOMContentLoaded', () => {
+            typeWriter(typewriterTitle, titleTexts[0], 100, () => {
+                setTimeout(() => {
+                    eraseText(typewriterTitle, 50, cycleTitle);
+                }, 3000);
+            });
+            
+            setTimeout(() => {
+                typeWriter(typewriterSubtitle, subtitleTexts[0], 50, () => {
+                    setTimeout(() => {
+                        eraseText(typewriterSubtitle, 30, cycleSubtitle);
+                    }, 3000);
+                });
+            }, 1500);
+        });
+
+        // Add hover effect to masonry items
+        document.querySelectorAll('.masonry-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'translateY(-10px)';
+                item.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 240, 255, 0.3)';
+                item.style.zIndex = '10';
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = '';
+                item.style.boxShadow = '';
+                item.style.zIndex = '';
+            });
+        });
+    </script>
+</body>
+</html>
